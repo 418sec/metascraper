@@ -22,7 +22,7 @@ const {
 
 const memoizeOne = require('memoize-one').default || require('memoize-one')
 const condenseWhitespace = require('condense-whitespace')
-const urlRegex = require('url-regex')({ exact: true })
+const isUrlCheck = require('is-valid-http')
 const langs = Object.values(require('iso-639-3/to-1'))
 const isRelativeUrl = require('is-relative-url')
 const fileExtension = require('file-extension')
@@ -74,7 +74,7 @@ const AUTHOR_MAX_LENGTH = 128
 const removeLocation = value => replace(value, REGEX_LOCATION, '')
 
 const isUrl = (url, { relative = false } = {}) =>
-  relative ? isRelativeUrl(url) : urlRegex.test(url)
+  relative ? isRelativeUrl(url) : isUrlCheck(url)
 
 const absoluteUrl = (baseUrl, relativePath) => {
   if (isEmpty(relativePath)) return new URL(baseUrl).toString()
